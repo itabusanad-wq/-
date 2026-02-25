@@ -1,0 +1,1346 @@
+/* ===== المتغيرات العامة ونظام التصميم (CSS Variables) ===== 
+   هنا نعرف الألوان والأحجام والظلال المستخدمة في كامل الموقع لضمان التناسق وسهولة التعديل
+*/
+:root {
+    /* تدرجات اللون الأخضر (هوية الجمعية) */
+    --green-50: #ecfdf5;
+    --green-100: #d1fae5;
+    --green-200: #a7f3d0;
+    --green-300: #6ee7b7;
+    --green-400: #34d399;
+    --green-500: #10b981;
+    --green-600: #059669;
+    --green-700: #047857;
+    --green-800: #065f46;
+    --green-900: #064e3b;
+
+    /* تدرجات الألوان الداكنة (للخلفيات والنصوص) */
+    --dark-50: #f8fafc;
+    --dark-100: #f1f5f9;
+    --dark-200: #e2e8f0;
+    --dark-300: #cbd5e1;
+    --dark-400: #94a3b8;
+    --dark-500: #64748b;
+    --dark-600: #475569;
+    --dark-700: #334155;
+    --dark-800: #1e293b;
+    --dark-850: #172033;
+    --dark-900: #0f172a;
+    --dark-950: #020617;
+
+    /* اللون الذهبي للتنبيهات والتميز */
+    --gold: #f59e0b;
+    --gold-light: #fbbf24;
+
+    /* أحجام زوايا العناصر (Border Radius) */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    /* نظام الظلال (Shadows) لإعطاء عمق للعناصر */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 40px rgba(16, 185, 129, 0.15);
+    /* وهج أخضر للبطاقات */
+
+    /* سرعات الانتقال (Transitions) للتحريكات السلسة */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* إعادة ضبط الإعدادات الافتراضية للمتصفح */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* جعل الأحجام تشمل الحدود والحواشي */
+}
+
+html {
+    scroll-behavior: smooth;
+    /* تمرير سلس عند الانتقال بين الأقسام */
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    /* استخدام خط تجول العربي */
+    background-color: var(--dark-950);
+    color: var(--dark-100);
+    line-height: 1.7;
+    overflow-x: hidden;
+    /* منع التمرير الأفقي */
+    min-height: 100vh;
+}
+
+/* ===== تأثير الذرات المتحركة في الخلفية (Particles) ===== */
+.bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    /* جعل الذرات لا تعيق النقر على العناصر */
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--green-400), transparent);
+    opacity: 0;
+    animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh) scale(0);
+    }
+
+    10% {
+        opacity: 0.6;
+    }
+
+    90% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20vh) scale(1);
+    }
+}
+
+/* ===== شريط التنقل العلوي (Header) ===== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15, 23, 42, 0.85);
+    /* خلفية شبه شفافة */
+    border-bottom: 1px solid rgba(16, 185, 129, 0.15);
+    padding: 1rem 2rem;
+    backdrop-filter: blur(24px);
+    /* تأثير زجاجي (Blur) */
+    -webkit-backdrop-filter: blur(24px);
+    transition: all var(--transition-normal);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--green-500), var(--green-700));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+    animation: iconPulse 4s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 35px rgba(16, 185, 129, 0.5);
+    }
+}
+
+.logo-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+.logo-text h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+.logo-text p {
+    font-size: 0.8rem;
+    color: var(--dark-400);
+    font-weight: 400;
+}
+
+.header-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    color: var(--green-300);
+    font-weight: 500;
+}
+
+.badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--green-400);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.3);
+    }
+}
+
+/* ===== قسم الهيرو (Hero Section) - واجهة الترحيب ===== */
+.hero {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    background: linear-gradient(180deg, var(--dark-900) 0%, var(--dark-950) 100%);
+    overflow: hidden;
+}
+
+/* تأثير التوهج الخلفي في الهيرو */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* الخط الفاصل السفلي المتدرج */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
+}
+
+.hero-content {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    will-change: transform, opacity;
+}
+
+.hero-tag {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: var(--green-300);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.4rem 1.2rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.3;
+    color: white;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* تحريك العنوان للأعلى عند التحميل */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* نص متدرج ومتحرك (Shimmer Effect) */
+.gradient-text {
+    display: block;
+    background: linear-gradient(135deg, var(--green-300), var(--green-500), var(--green-300));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+
+    0%,
+    100% {
+        background-position: 0% center;
+    }
+
+    50% {
+        background-position: 200% center;
+    }
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--dark-300);
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.hero-subtitle strong {
+    color: var(--green-400);
+    font-weight: 700;
+}
+
+.hero-stats-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-xl);
+    padding: 2rem 2.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-stat-value {
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: white;
+    line-height: 1;
+    font-feature-settings: 'tnum';
+}
+
+.hero-stat-unit {
+    font-size: 0.9rem;
+    color: var(--green-400);
+    font-weight: 600;
+    margin-top: 0.2rem;
+}
+
+.hero-stat-label {
+    font-size: 0.8rem;
+    color: var(--dark-400);
+    margin-top: 0.4rem;
+    font-weight: 400;
+}
+
+.hero-stat-divider {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(180deg, transparent, var(--dark-600), transparent);
+}
+
+/* ===== الأقسام العامة (KPI, Charts, Impact) ===== */
+.kpi-section,
+.chart-section,
+.comparison-section,
+.impact-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.4rem;
+}
+
+.section-header p {
+    font-size: 0.95rem;
+    color: var(--dark-400);
+    font-weight: 400;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.kpi-card {
+    background: linear-gradient(145deg, var(--dark-800), var(--dark-850));
+    border: 1px solid var(--dark-700);
+    border-radius: var(--radius-lg);
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: transform;
+}
+
+.kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green-500), var(--green-300));
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.kpi-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+    transition: all var(--transition-slow);
+}
+
+.kpi-card:hover::after {
+    top: -20%;
+    right: -20%;
+}
+
+.kpi-card:hover {
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: var(--shadow-glow);
+}
+
+.kpi-card:hover::before {
+    opacity: 1;
+}
+
+.kpi-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.kpi-primary {
+    border-color: rgba(16, 185, 129, 0.25);
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), var(--dark-850));
+}
+
+.kpi-primary::before {
+    opacity: 1 !important;
+}
+
+.kpi-savings {
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+.kpi-savings::before {
+    background: linear-gradient(90deg, var(--gold), var(--gold-light)) !important;
+}
+
+.kpi-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-400);
+    transition: all var(--transition-normal);
+}
+
+.kpi-card:hover .kpi-icon {
+    background: rgba(16, 185, 129, 0.18);
+    transform: scale(1.05);
+}
+
+.kpi-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.kpi-data {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.kpi-value {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: white;
+    line-height: 1;
+    font-feature-settings: 'tnum';
+}
+
+.kpi-zero {
+    color: var(--gold) !important;
+    text-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+}
+
+.kpi-unit {
+    font-size: 0.85rem;
+    color: var(--dark-400);
+    font-weight: 500;
+}
+
+.kpi-label {
+    font-size: 0.9rem;
+    color: var(--dark-300);
+    font-weight: 500;
+}
+
+.kpi-trend {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--green-400);
+    margin-top: 0.2rem;
+}
+
+.trend-gold {
+    color: var(--gold-light);
+}
+
+.trend-savings {
+    color: var(--gold);
+}
+
+/* ===== Chart Section ===== */
+.chart-container {
+    background: linear-gradient(145deg, var(--dark-800), var(--dark-850));
+    border: 1px solid var(--dark-700);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+}
+
+.chart-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+/* تم حذف أنماط الشارت القديمة (تم الاستبدال بـ ApexCharts + Tailwind) */
+.chart-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+
+/* ===== رحلة التحول الرقمي (Journey Timeline) ===== */
+.journey-section {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.journey-timeline {
+    position: relative;
+    padding: 1rem 0;
+}
+
+.journey-line {
+    position: absolute;
+    top: 0;
+    right: 27px;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg,
+            var(--green-700) 0%,
+            var(--green-500) 50%,
+            var(--gold) 100%);
+    border-radius: 3px;
+    opacity: 0.3;
+}
+
+.journey-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 0%;
+    background: linear-gradient(180deg,
+            var(--green-400),
+            var(--green-300),
+            var(--gold));
+    border-radius: 3px;
+    transition: height 2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+
+.journey-line.animated::after {
+    height: 100%;
+}
+
+.journey-step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.5rem 0;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.journey-step.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.journey-node {
+    position: relative;
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.journey-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(145deg, var(--dark-800), var(--dark-850));
+    border: 2px solid var(--green-600);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-400);
+    transition: all var(--transition-normal);
+    position: relative;
+    z-index: 2;
+}
+
+.journey-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.journey-step:hover .journey-icon {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--green-400);
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
+    transform: scale(1.08);
+}
+
+.journey-icon-gold {
+    border-color: var(--gold) !important;
+    color: var(--gold-light) !important;
+}
+
+.journey-step:hover .journey-icon-gold {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: var(--gold-light);
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.3);
+}
+
+.journey-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid var(--green-400);
+    animation: journeyPulse 2.5s ease-in-out infinite;
+    z-index: 1;
+}
+
+.journey-pulse-gold {
+    border-color: var(--gold);
+    animation: journeyPulseGold 2s ease-in-out infinite;
+}
+
+@keyframes journeyPulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.3;
+    }
+}
+
+@keyframes journeyPulseGold {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.6);
+        opacity: 0.4;
+    }
+}
+
+.journey-content {
+    flex: 1;
+    background: linear-gradient(145deg, var(--dark-800), var(--dark-850));
+    border: 1px solid var(--dark-700);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.8rem;
+    transition: all var(--transition-normal);
+}
+
+.journey-step:hover .journey-content {
+    border-color: rgba(16, 185, 129, 0.2);
+    box-shadow: var(--shadow-glow);
+    transform: translateX(-5px);
+}
+
+.journey-step-highlight .journey-content {
+    border-color: rgba(245, 158, 11, 0.2);
+    background: linear-gradient(145deg, rgba(245, 158, 11, 0.04), var(--dark-850));
+}
+
+.journey-step-highlight:hover .journey-content {
+    border-color: rgba(245, 158, 11, 0.35);
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.08);
+}
+
+.journey-tag {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: var(--green-300);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.8rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.3px;
+}
+
+.journey-tag-gold {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.25);
+    color: var(--gold-light);
+}
+
+.journey-content h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.4rem;
+}
+
+.journey-content p {
+    font-size: 0.88rem;
+    color: var(--dark-400);
+    line-height: 1.6;
+}
+
+.journey-badge-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+}
+
+.journey-mini-badge {
+    font-size: 0.78rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-full);
+    color: var(--dark-300);
+    font-weight: 500;
+}
+
+/* Journey Responsive */
+@media (max-width: 600px) {
+    .journey-step {
+        gap: 1rem;
+    }
+
+    .journey-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .journey-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .journey-pulse {
+        width: 44px;
+        height: 44px;
+    }
+
+    .journey-line {
+        right: 20px;
+    }
+
+    .journey-content {
+        padding: 1.2rem;
+    }
+
+    .journey-content h3 {
+        font-size: 1rem;
+    }
+}
+
+
+/* ===== قسم الأثر (Impact Section) ===== */
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.impact-card {
+    background: linear-gradient(145deg, var(--dark-800), var(--dark-850));
+    border: 1px solid var(--dark-700);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    will-change: transform;
+}
+
+.impact-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.impact-card:hover {
+    border-color: rgba(16, 185, 129, 0.2);
+    box-shadow: var(--shadow-glow);
+}
+
+.impact-card:hover .impact-number {
+    opacity: 0.3;
+}
+
+.impact-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--green-500);
+    opacity: 0.15;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    transition: opacity var(--transition-normal);
+}
+
+.impact-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.impact-card p {
+    font-size: 0.9rem;
+    color: var(--dark-400);
+    line-height: 1.6;
+}
+
+/* ===== التذييل (Footer) ===== */
+.footer {
+    position: relative;
+    z-index: 1;
+    background: var(--dark-900);
+    border-top: 1px solid var(--dark-700);
+    padding: 2.5rem 2rem;
+    margin-top: 2rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--green-400);
+}
+
+.footer-brand p {
+    font-size: 0.8rem;
+    color: var(--dark-500);
+}
+
+.footer-meta {
+    text-align: left;
+}
+
+.footer-meta p {
+    font-size: 0.8rem;
+    color: var(--dark-500);
+}
+
+/* ===== القسم الاستراتيجي (Strategic Section) ===== */
+.strategic-section {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+.strategic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.strategic-card {
+    background: linear-gradient(145deg, var(--dark-800), var(--dark-850));
+    border: 1px solid var(--dark-700);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.strategic-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.strategic-card:hover {
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-8px);
+}
+
+.strategic-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-400);
+    margin: 0 auto 1.5rem;
+    transition: all var(--transition-normal);
+}
+
+.strategic-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.icon-apple {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.icon-impact {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--gold);
+}
+
+.strategic-card h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.strategic-card p {
+    font-size: 0.95rem;
+    color: var(--dark-300);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.strategic-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-full);
+    color: var(--green-400);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-gold {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+    color: var(--gold);
+}
+
+.highlight-card {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: linear-gradient(145deg, rgba(245, 158, 11, 0.05), var(--dark-850));
+}
+
+.strategic-impact-value {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    margin-top: 1rem;
+}
+
+/* ===== زر العودة للأعلى (Scroll to Top) ===== */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-600), var(--green-500));
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 200;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(16, 185, 129, 0.5);
+}
+
+/* ==========================================================================
+   8. التجاوب مع مقاسات الشاشة (Responsive Design) - تحديث شامل
+   ========================================================================== */
+
+/* للشاشات المتوسطة (Tablets) */
+@media (max-width: 1024px) {
+
+    .container,
+    .header-content,
+    .hero-content,
+    .section-header,
+    .kpi-grid,
+    .chart-container,
+    .journey-timeline,
+    .strategic-grid,
+    .impact-grid,
+    .footer-content {
+        max-width: 95%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* للهواتف الذكية (Mobile) */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+        text-align: center;
+    }
+
+    .logo-section {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .hero {
+        padding: 4rem 1rem 3rem;
+    }
+
+    .hero-title {
+        font-size: 1.85rem;
+        padding: 0 0.5rem;
+    }
+
+    .hero-stats-row {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .hero-stat {
+        flex-direction: row;
+        /* جعل الرقم والوحدة بجانب بعضهما في الجوال */
+        gap: 0.5rem;
+        align-items: baseline;
+    }
+
+    .hero-stat-label {
+        width: 100%;
+        text-align: center;
+        margin-top: 0;
+    }
+
+    /* إعادة الضبط ليكون العنوان (Label) تحت السطر المرفوع (Value + Unit) */
+    .hero-stat {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero-stat-value {
+        font-size: 2rem;
+    }
+
+    .hero-stat-unit {
+        font-size: 1rem;
+        color: var(--green-400);
+        font-weight: 700;
+    }
+
+    .hero-stat-divider {
+        width: 60px;
+        height: 1px;
+        margin: 0.5rem auto;
+        background: linear-gradient(90deg, transparent, var(--dark-600), transparent);
+    }
+
+    .kpi-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .chart-container {
+        padding: 1.25rem;
+        margin: 0 1rem;
+    }
+
+    /* إصلاح خط الرحلة في الجوال */
+    .journey-timeline {
+        padding-right: 0.5rem;
+        max-width: 100%;
+    }
+
+    .journey-line {
+        right: 20px;
+    }
+
+    .journey-step {
+        width: 100%;
+        padding-right: 3rem !important;
+        padding-left: 0.5rem !important;
+        text-align: right !important;
+        margin-bottom: 1.5rem;
+    }
+
+    .journey-node {
+        position: absolute;
+        right: -8px !important;
+        left: auto !important;
+        transform: scale(0.7);
+    }
+
+    .journey-content {
+        width: 100%;
+    }
+
+    .strategic-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .highlight-card {
+        grid-column: span 1;
+    }
+
+    .impact-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .scroll-top-btn {
+        bottom: 1.5rem;
+        left: 1.5rem;
+        width: 42px;
+        height: 42px;
+    }
+}
+
+/* للهواتف الصغيرة جداً (iPhone SE / 375px) */
+@media (max-width: 400px) {
+    .hero-title {
+        font-size: 1.6rem;
+    }
+
+    .hero-stat-value {
+        font-size: 1.8rem;
+    }
+
+    .kpi-value {
+        font-size: 1.8rem;
+    }
+
+    .chart-label {
+        min-width: 70px;
+    }
+
+    .chart-name {
+        font-size: 0.75rem;
+    }
+
+    .journey-node {
+        right: -15px !important;
+    }
+
+    .journey-mini-badge {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+/* ===== أنماط الطباعة (Print Styles) ===== */
+@media print {
+    body {
+        background: white;
+        color: #333;
+    }
+
+    .bg-particles,
+    .scroll-top-btn {
+        display: none;
+    }
+
+    .header {
+        position: relative;
+        background: white;
+        border-bottom: 2px solid #059669;
+    }
+
+    .kpi-card,
+    .chart-container,
+    .comp-card,
+    .impact-card {
+        break-inside: avoid;
+        border: 1px solid #ddd;
+        box-shadow: none;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .hero-title,
+    .section-header h2,
+    .kpi-value {
+        color: #1a1a1a;
+    }
+
+    .gradient-text {
+        -webkit-text-fill-color: #059669;
+    }
+}
