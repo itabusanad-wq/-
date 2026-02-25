@@ -141,11 +141,46 @@ function renderProjectsChart() {
         },
         grid: {
             borderColor: '#374151',
-            strokeDashArray: 4
+            strokeDashArray: 4,
+            padding: {
+                left: 10,
+                right: 20
+            }
         },
         tooltip: {
             theme: 'dark'
-        }
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        barHeight: '55%'
+                    }
+                },
+                xaxis: {
+                    labels: {
+                        show: false
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            fontSize: '10px'
+                        },
+                        maxWidth: 80
+                    }
+                },
+                dataLabels: {
+                    style: {
+                        fontSize: '9px'
+                    }
+                }
+            }
+        }]
     };
 
     const container = document.querySelector("#projectsRevenueChart");
