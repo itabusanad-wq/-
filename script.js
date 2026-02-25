@@ -1,5 +1,5 @@
 /**
- * ===== وظائف لوحة التحكم - جمعية عناية =====
+ * ===== وظائف تقرير الإنجازات - جمعية عناية =====
  * يحتوي هذا الملف على كافة المنطق البرمجي الخاص بالتحريكات،
  * عدادات الأرقام، مراقبة التمرير، وتأثيرات التفاعل.
  */
@@ -74,23 +74,15 @@ function initChartBars() {
 }
 
 function renderProjectsChart() {
-    const storedData = JSON.parse(localStorage.getItem('dashboardData')) || {};
-
     const categories = [
-        storedData.project1_name || 'جامع محمد الصقعبي',
-        storedData.project2_name || 'صيانة بيوت الله',
-        storedData.project3_name || 'سقيا الماء',
-        storedData.project4_name || 'المصلى المتنقل',
-        storedData.project5_name || 'مسجد الهدى والسلام'
+        'جامع محمد الصقعبي',
+        'صيانة بيوت الله',
+        'سقيا الماء',
+        'المصلى المتنقل',
+        'مسجد الهدى والسلام'
     ];
 
-    const values = [
-        parseFloat(storedData.project1_value) || 34500,
-        parseFloat(storedData.project2_value) || 23821,
-        parseFloat(storedData.project3_value) || 10600,
-        parseFloat(storedData.project4_value) || 4506,
-        parseFloat(storedData.project5_value) || 2741
-    ];
+    const values = [34500, 23821, 10600, 4506, 2741];
 
     const options = {
         series: [{
@@ -319,59 +311,10 @@ function initScrollTop() {
     });
 }
 
-// ===== وظيفة جلب البيانات الديناميكية من لوحة الإدارة =====
-function loadDynamicData() {
-    const config = JSON.parse(localStorage.getItem('dashboard_config'));
-    if (!config) return;
 
-    // 1. التعامل مع شعار الصورة (Logo Image)
-    const logoImage = document.getElementById('logoImage');
-    const defaultLogoSvg = document.getElementById('defaultLogoSvg');
-    if (config.logo_image && logoImage && defaultLogoSvg) {
-        logoImage.src = config.logo_image;
-        logoImage.style.display = 'block';
-        defaultLogoSvg.style.display = 'none';
-
-        // تحسين مظهر الحاوية إذا كانت هناك صورة
-        const logoContainer = document.getElementById('logoContainer');
-        if (logoContainer) logoContainer.style.background = 'transparent';
-    }
-
-    // 2. تحديث العنوان والوصف (SEO)
-    if (config.page_title) {
-        document.title = config.page_title;
-    }
-    if (config.page_meta_desc) {
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) metaDesc.setAttribute('content', config.page_meta_desc);
-    }
-
-    // 3. التعامل مع كافة النصوص والأرقام الديناميكية
-    document.querySelectorAll('[data-dynamic]').forEach(el => {
-        const key = el.dataset.dynamic;
-        if (config[key] !== undefined) {
-            // تحديث قيمة العداد إذا كان العنصر يحتوي على خاصية data-count
-            if (el.hasAttribute('data-count')) {
-                el.dataset.count = config[key];
-            }
-
-            // استخدام innerHTML للأوصاف التي قد تحتوي على تنسيق (مثل hero_subtitle)
-            if (key.includes('subtitle') || key.includes('desc') || key.includes('meta') || key.includes('display') || key.includes('badge')) {
-                el.innerHTML = config[key];
-            } else if (el.hasAttribute('data-count')) {
-                // للقيم الرقمية، نقوم بتحديث data-count فقط ونترك animateCounter يقوم بالباقي
-                el.dataset.count = config[key];
-            } else {
-                // للقيم النصية القماشية الأخرى، نحدّث المحتوى النصي
-                el.textContent = config[key];
-            }
-        }
-    });
-}
 
 // تفعيل كافة الوظائف عند اكتمال تحميل هيكل الصفحة والموارد
 document.addEventListener('DOMContentLoaded', () => {
-    loadDynamicData();     // جلب التعديلات من لوحة الإدارة أولاً
     initParticles();       // خلفية الجزيئات المضيئة
     initHeroCounters();    // عدادات الهيرو
     initKPICards();        // مؤشرات الأداء
